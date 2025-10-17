@@ -1,0 +1,45 @@
+package dotenv
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
+
+/*
+Read environment files and load environment variables in project
+Note:
+- Environment file shall end with .env only.
+- If there exists a key with no value, the value for that is set to empty string.
+*/
+func LoadEnvFile(files ...string) error {
+	for _, file := range files {
+		checkFile := strings.Split(file, ".")
+		if len(checkFile) == 2 && checkFile[1] == "env" {
+			f, err := os.Open(file)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+
+			scanner := bufio.NewScanner(f)
+
+			for scanner.Scan() {
+				line := strings.TrimSpace(scanner.Text())
+
+				// Split the key=value
+				arr := strings.Split(line, "=")
+				switch len(arr) {
+				case 1: // empty value
+					os.Setenv(arr[0], "")
+				case 2:
+					os.Setenv(arr[0], arr[1])
+				}
+			}
+		} else {
+			return fmt.Errorf("%s file format is not supported", file)
+		}
+	}
+	return nil
+}
