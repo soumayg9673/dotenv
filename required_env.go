@@ -12,10 +12,10 @@ Notes:
     2.1. If value is required set TRUE.
     2.2. If value can be null set FALSE.
 */
-type mandatoryEnv map[string]bool
+type requiredEnv map[string]bool
 
 var (
-	mandEnvList            = mandatoryEnv{}
+	rqdEnvList             = requiredEnv{}
 	ErrAddRequiredKey      = errors.New("key with no value required already added to list")
 	ErrAddRequiredKeyValue = errors.New("key with value required already added to list")
 )
@@ -23,18 +23,18 @@ var (
 // Add environment variable key as required. Set value required with true/false.
 // Throws error if key found in required list.
 func AddRqdKey(key string, val bool) error {
-	if v, ok := mandEnvList[key]; ok {
+	if v, ok := rqdEnvList[key]; ok {
 		if v {
 			return ErrAddRequiredKeyValue
 		}
 		return ErrAddRequiredKey
 
 	}
-	mandEnvList[key] = val
+	rqdEnvList[key] = val
 	return nil
 }
 
 // Delete environment variable key from required.
 func DeleteRqdKey(key string) {
-	delete(mandEnvList, key)
+	delete(rqdEnvList, key)
 }
