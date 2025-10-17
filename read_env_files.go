@@ -12,6 +12,7 @@ Read environment files and load environment variables in project
 Note:
 - Environment file shall end with .env only.
 - If there exists a key with no value, the value for that is set to empty string.
+- Required variables are deleted map 'rqdEnvList'.
 */
 func LoadEnvFile(files ...string) error {
 	for _, file := range files {
@@ -32,9 +33,15 @@ func LoadEnvFile(files ...string) error {
 				arr := strings.Split(line, "=")
 				switch len(arr) {
 				case 1: // empty value
-					os.Setenv(arr[0], "")
+					if err := os.Setenv(arr[0], ""); err != nil {
+						return err
+					}
+					deleteFromRqd(arr[0], "")
 				case 2:
-					os.Setenv(arr[0], arr[1])
+					if err := os.Setenv(arr[0], arr[1]); err != nil {
+						return err
+					}
+					deleteFromRqd(arr[0], arr[1])
 				}
 			}
 		} else {

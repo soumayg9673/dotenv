@@ -38,3 +38,16 @@ func AddRqdKey(key string, val bool) error {
 func DeleteRqdKey(key string) {
 	delete(rqdEnvList, key)
 }
+
+// Delete the key from required list.
+// This functionality is intended to delete the each key from required list
+// after successful setting key-value in the project.
+func deleteFromRqd(key, value string) {
+	if v, ok := rqdEnvList[key]; ok {
+		if value == "" && !v {
+			delete(rqdEnvList, key)
+		} else if value != "" && v {
+			delete(rqdEnvList, key)
+		}
+	}
+}
