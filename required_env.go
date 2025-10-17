@@ -1,9 +1,5 @@
 package dotenv
 
-import (
-	"errors"
-)
-
 /*
 List of required environment variables
 Notes:
@@ -15,9 +11,7 @@ Notes:
 type requiredEnv map[string]bool
 
 var (
-	rqdEnvList             = requiredEnv{}
-	ErrAddRequiredKey      = errors.New("key with no value required already added to list")
-	ErrAddRequiredKeyValue = errors.New("key with value required already added to list")
+	rqdEnvList = requiredEnv{}
 )
 
 // Add environment variable key as required. Set value required with true/false.
