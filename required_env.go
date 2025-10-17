@@ -32,6 +32,11 @@ func DeleteRqdKey(key string) {
 	delete(rqdEnvList, key)
 }
 
+// Get list of required environment variables
+func GetAllRqd() map[string]bool {
+	return rqdEnvList
+}
+
 // Delete the key from required list.
 // This functionality is intended to delete the each key from required list
 // after successful setting key-value in the project.
