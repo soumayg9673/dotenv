@@ -19,10 +19,9 @@ var (
 func AddRqdKey(key string, val bool) error {
 	if v, ok := rqdEnvList[key]; ok {
 		if v {
-			return ErrAddRequiredKeyValue
+			return ErrAddRqdKeyValue
 		}
-		return ErrAddRequiredKey
-
+		return ErrAddRqdKey
 	}
 	rqdEnvList[key] = val
 	return nil
