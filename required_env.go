@@ -28,8 +28,10 @@ func AddRqdKey(key string, val bool) error {
 }
 
 // Delete environment variable key from required.
-func DeleteRqdKey(key string) {
-	delete(rqdEnvList, key)
+func DeleteRqdKey(keys ...string) {
+	for _, k := range keys {
+		delete(rqdEnvList, k)
+	}
 }
 
 // Get list of required environment variables
