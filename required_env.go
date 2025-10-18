@@ -21,9 +21,8 @@ var (
 )
 
 // Add environment variable key as required. Set value required with true/false.
-func AddRqdKey(key string, val bool) error {
+func AddRqdKey(key string, val bool) {
 	rqdEnvList[key] = val
-	return nil
 }
 
 // Add multiple environment variable key as required. Set value required with true/false.
