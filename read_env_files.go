@@ -16,7 +16,7 @@ Note:
 */
 func LoadEnvFile(files ...string) error {
 	for _, file := range files {
-		if strings.HasSuffix(file, ".env") {
+		if strings.HasSuffix(file, ".env") || strings.HasPrefix(file, ".env") {
 			f, err := os.Open(file)
 			if err != nil {
 				return err
