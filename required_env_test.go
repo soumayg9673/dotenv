@@ -129,3 +129,42 @@ func TestAddMulRqdKeys(t *testing.T) {
 		})
 	}
 }
+
+func TestValidateRqdEnv(t *testing.T) {
+	testCases := []struct {
+		Name   string
+		MapRqd map[string]bool
+		Err    bool
+	}{
+		{
+			Name: "map of keys with value/no-value required",
+			MapRqd: map[string]bool{
+				"PACKAGE": true,
+				"PUBLIC":  false,
+			},
+			Err: true,
+		},
+		{
+			Name:   "no required list",
+			MapRqd: map[string]bool{},
+			Err:    false,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.Name, func(t *testing.T) {
+			if err := dotenv.AddMulRqdKeys(tc.MapRqd); err != nil {
+				if !tc.Err { // failed
+					t.Error("expected error for required keys are still not loaded in env")
+				} else { // passed
+					return
+				}
+			}
+
+			// clean up required env keys
+			for k := range tc.MapRqd {
+				dotenv.DeleteRqdKey(k)
+			}
+		})
+	}
+}
