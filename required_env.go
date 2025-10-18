@@ -1,5 +1,10 @@
 package dotenv
 
+import (
+	"fmt"
+	"strings"
+)
+
 /*
 List of required environment variables
 Notes:
@@ -50,4 +55,22 @@ func deleteFromRqd(key, value string) {
 		}
 		delete(rqdEnvList, key)
 	}
+}
+
+func ValidateRqdEnv() error {
+	if len(rqdEnvList) != 0 {
+		for k, v := range rqdEnvList {
+			var err string
+			switch v {
+			case true:
+				err = fmt.Sprintf(errNoKeyValue, k)
+			case false:
+				err = fmt.Sprintf(errNoKey, k)
+			}
+			rqdEnvErrs = append(rqdEnvErrs, err)
+		}
+		return fmt.Errorf("add the following environment variables:\n%s",
+			strings.Join(rqdEnvErrs, ",\n"))
+	}
+	return nil
 }
