@@ -16,8 +16,7 @@ Note:
 */
 func LoadEnvFile(files ...string) error {
 	for _, file := range files {
-		checkFile := strings.Split(file, ".")
-		if len(checkFile) == 2 && checkFile[1] == "env" {
+		if strings.HasSuffix(file, ".env") {
 			f, err := os.Open(file)
 			if err != nil {
 				return err
