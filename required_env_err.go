@@ -6,6 +6,7 @@ import (
 )
 
 var (
+	ErrEmptyKey       = errors.New("key is empty")
 	ErrAddRqdKey      = errors.New("key with no value required already added to list")
 	ErrAddRqdKeyValue = errors.New("key with value required already added to list")
 	// error messages for required fields

@@ -48,8 +48,6 @@ func deleteFromRqd(key, value string) {
 			errMsg := formatErrorMsg(key, errNoValue)
 			rqdEnvErrs = append(rqdEnvErrs, errMsg)
 		}
-
-		SetErrorMsg("", ERR_NO_KEY)
 		delete(rqdEnvList, key)
 	}
 }

@@ -28,16 +28,15 @@ func LoadEnvFile(files ...string) error {
 
 			for scanner.Scan() {
 				line := strings.TrimSpace(scanner.Text())
+				if len(line) > 0 && strings.Contains(line, "=") {
+					// Split the key=value
+					arr := strings.SplitN(line, "=", 2)
 
-				// Split the key=value
-				arr := strings.Split(line, "=")
-				switch len(arr) {
-				case 1: // empty value
-					if err := os.Setenv(arr[0], ""); err != nil {
-						return err
+					// Check for empty key
+					if arr[0] == "" {
+						return ErrEmptyKey
 					}
-					deleteFromRqd(arr[0], "")
-				case 2:
+
 					if err := os.Setenv(arr[0], arr[1]); err != nil {
 						return err
 					}
