@@ -44,10 +44,12 @@ func GetAllRqd() map[string]bool {
 // after successful setting key-value in the project.
 func deleteFromRqd(key, value string) {
 	if v, ok := rqdEnvList[key]; ok {
-		if value == "" && !v {
-			delete(rqdEnvList, key)
-		} else if value != "" && v {
-			delete(rqdEnvList, key)
+		if value == "" && v { // error: value required
+			errMsg := formatErrorMsg(key, errNoValue)
+			rqdEnvErrs = append(rqdEnvErrs, errMsg)
 		}
+
+		SetErrorMsg("", ERR_NO_KEY)
+		delete(rqdEnvList, key)
 	}
 }
