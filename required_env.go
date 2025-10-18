@@ -2,6 +2,7 @@ package dotenv
 
 import (
 	"fmt"
+	"maps"
 	"strings"
 )
 
@@ -20,16 +21,14 @@ var (
 )
 
 // Add environment variable key as required. Set value required with true/false.
-// Throws error if key found in required list.
 func AddRqdKey(key string, val bool) error {
-	if v, ok := rqdEnvList[key]; ok {
-		if v {
-			return ErrAddRqdKeyValue
-		}
-		return ErrAddRqdKey
-	}
 	rqdEnvList[key] = val
 	return nil
+}
+
+// Add multiple environment variable key as required. Set value required with true/false.
+func AddMulRqdKeys(rqds map[string]bool) {
+	maps.Copy(rqdEnvList, rqds)
 }
 
 // Delete environment variable key from required.
