@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	ErrEmptyKey = errors.New("key is empty")
+	ErrInvalidFileFormat = errors.New("invalid file format")
+	ErrEmptyKey          = errors.New("key is empty")
 	// error messages for required fields
 	rqdEnvErrs    = []string{}
 	errNoKey      = "missing %s key"

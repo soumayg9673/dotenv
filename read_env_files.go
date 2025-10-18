@@ -2,7 +2,6 @@ package dotenv
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strings"
 )
@@ -43,7 +42,7 @@ func LoadEnvFile(files ...string) error {
 				}
 			}
 		} else {
-			return fmt.Errorf("%s file format is not supported", file)
+			return ErrInvalidFileFormat
 		}
 	}
 	return nil
