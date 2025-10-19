@@ -71,14 +71,14 @@ func ValidateRqdEnv() error {
 			var err string
 			switch v {
 			case true:
-				err = fmt.Sprintf(errNoKeyValue, k)
+				err = formatErrorMsg(k, errNoKeyValue)
 			case false:
-				err = fmt.Sprintf(errNoKey, k)
+				err = formatErrorMsg(k, errNoKey)
 			}
 			rqdEnvErrs = append(rqdEnvErrs, err)
 		}
-		return fmt.Errorf("add the following environment variables:\n%s",
-			strings.Join(rqdEnvErrs, ","))
+		return fmt.Errorf("add the env variables: [%s]",
+			strings.Join(rqdEnvErrs, " "))
 	}
 	return nil
 }

@@ -2,7 +2,7 @@ package dotenv
 
 import (
 	"errors"
-	"strings"
+	"fmt"
 )
 
 var (
@@ -10,9 +10,9 @@ var (
 	ErrEmptyKey          = errors.New("key is empty")
 	// error messages for required fields
 	rqdEnvErrs    = []string{}
-	errNoKey      = "missing %s key"
-	errNoKeyValue = "missing key-value for %s"
-	errNoValue    = "missing value for %s"
+	errNoKey      = "key"
+	errNoKeyValue = "key-value"
+	errNoValue    = "value"
 )
 
 type reqdEnvErrType int
@@ -27,7 +27,6 @@ const (
 // {key not found}.
 // {key-value not found},
 // {value not found}.
-// Custom message can contain %s to mention key.
 func SetErrorMsg(err string, terr reqdEnvErrType) {
 	switch terr {
 	case ERR_NO_KEY:
@@ -40,5 +39,5 @@ func SetErrorMsg(err string, terr reqdEnvErrType) {
 }
 
 func formatErrorMsg(key, err string) string {
-	return strings.ReplaceAll(err, "%s", key)
+	return fmt.Sprintf("%s:%s", key, err)
 }

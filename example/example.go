@@ -10,7 +10,8 @@ import (
 
 func main() {
 	// Setting required key
-	dotenv.AddRqdKey("AUTHOR", true)
+	dotenv.AddRqdKey("HELLO", true)
+	dotenv.AddRqdKey("AU", true)
 
 	if err := dotenv.LoadEnvFile("./example/test.env"); err != nil {
 		log.Println(err)
