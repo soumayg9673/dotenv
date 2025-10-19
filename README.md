@@ -120,5 +120,3 @@ Raise an issue for the following:
 - Queries
 - Contributing to library
 ```
-
-We also maintain Wiki for updated documentation for existing and upcoming releases, with contribution details for each verion released.
