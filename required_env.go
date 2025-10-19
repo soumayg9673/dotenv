@@ -78,7 +78,7 @@ func ValidateRqdEnv() error {
 			rqdEnvErrs = append(rqdEnvErrs, err)
 		}
 		return fmt.Errorf("add the following environment variables:\n%s",
-			strings.Join(rqdEnvErrs, ",\n"))
+			strings.Join(rqdEnvErrs, ","))
 	}
 	return nil
 }
